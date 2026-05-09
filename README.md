@@ -124,17 +124,6 @@ The entire project runs in a single Colab notebook with a free T4 GPU. Open `npc
 
 ---
 
-## Project Structure
-
-style-conditioned-npc/
-├── grid_env.py               # Custom Gymnasium environment
-├── style_policy.py           # StyleConditionedExtractor (SB3 feature extractor)
-├── train.py                  # PPO training — all 4 styles
-├── evaluate.py               # Evaluation + comparison bar charts
-├── npc_project_colab.ipynb   # All-in-one Colab notebook
-└── requirements.txt
----
-
 ## Known Limitations
 
 - **300k steps is low** for flanker and sniper — both styles would benefit from 1M+ steps to fully converge
