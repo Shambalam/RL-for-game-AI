@@ -9,28 +9,6 @@ Built as a deep learning course project, now being developed further toward real
 
 ---
 
-## Demo
-
-Style: sniper  |  Step: 47
-Player HP: 80  NPC HP: 100  NPC Ammo: 17
-. . . . . . . . . . . . . . . .
-. # . . . c . . . . # . . . . .
-. . . . . . . . . . . . . . . .
-. . # . . . . . . . . . . # . .
-. . . c . . P . . . . . . . . .
-. . . . . . . . . . . c . . . .
-. . . . . . . . . . . . . . . .
-. . . . . . . . . # . . . . . .
-. . # . c . . . . . . . . . . .
-. . . . . . . . . . . . . . . .
-. . . . . . . . . . . . . . N .
-. . . . . . . . . . . . . . . .
-
-
-`#` = obstacle · `c` = cover · `P` = player · `N` = NPC
-
----
-
 ## Results
 
 Evaluated over 30 deterministic episodes per style after 300k training steps on a T4 GPU (~8 min per style).
@@ -44,17 +22,6 @@ Evaluated over 30 deterministic episodes per style after 300k training steps on 
 | Vanilla PPO (baseline) | 31.20 | 22% | 7.35 | 28.40 | 24.10 |
 
 The distance ordering (Flanker < Aggressive < Defensive < Sniper) confirms the style embedding is producing real spatial behavioral differences, not just different reward accumulation. The vanilla PPO baseline without style conditioning converges to a fixed 7.2–7.5 average distance with no runtime controllability.
-
----
-
-## Architecture
-
-Observation
-├── Occupancy Grid (4 × 11 × 11)  ──→  CNN (16, 32, 32 channels)  ──┐
-├── Scalars (hp, ammo, dist, θ)   ──→  MLP (32 → 32)               ├──→  Fusion MLP (128)  ──→  Actor π(a|s,z)
-└── Style One-Hot (4,)            ──→  Linear Embedding (4 → 16)  ──┘                      └──→  Critic V(s,z)
-
-The style one-hot is projected through a **learned embedding layer** rather than fed directly, so the network can develop a continuous internal style representation. This also enables style interpolation at inference time (untested but theoretically supported).
 
 ---
 
